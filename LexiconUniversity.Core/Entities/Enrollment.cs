@@ -14,7 +14,6 @@ namespace LexiconUniversity.Core.Entities
         public int Grade { get; set; }
 
         //Convention 1
-
-        public Student Student { get; set; }
+       // public Student Student { get; set; }
     }
 }
