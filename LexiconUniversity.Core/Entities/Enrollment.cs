@@ -12,5 +12,9 @@ namespace LexiconUniversity.Core.Entities
         public int StudentId { get; set; }
 
         public int Grade { get; set; }
+
+        //Convention 1
+
+        public Student Student { get; set; }
     }
 }
