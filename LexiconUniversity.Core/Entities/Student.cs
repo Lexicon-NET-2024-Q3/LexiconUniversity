@@ -22,5 +22,7 @@ namespace LexiconUniversity.Core.Entities
 
         //Convention 2 & 3
         public ICollection<Enrollment> Enrollments { get; set; }
+
+        public ICollection<Course> Courses { get; set; }
     }
 }
