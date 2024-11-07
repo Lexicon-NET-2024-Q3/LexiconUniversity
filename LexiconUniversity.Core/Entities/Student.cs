@@ -20,7 +20,7 @@ namespace LexiconUniversity.Core.Entities
         //Navigational property
         public Address Address { get; set; }
 
-        //Convention 2
+        //Convention 2 & 3
         public ICollection<Enrollment> Enrollments { get; set; }
     }
 }
