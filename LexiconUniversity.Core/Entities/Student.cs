@@ -16,5 +16,8 @@ namespace LexiconUniversity.Core.Entities
         public string FullName => $"{FirstName} {LastName}"; 
 
         public string Email { get; set; }
+
+        //Navigational property
+        public Address Address { get; set; }
     }
 }
