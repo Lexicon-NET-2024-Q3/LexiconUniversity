@@ -49,7 +49,7 @@ namespace LexiconUniversity.Persistance.Migrations
                     b.HasIndex("StudentId")
                         .IsUnique();
 
-                    b.ToTable("Address");
+                    b.ToTable("Address", (string)null);
                 });
 
             modelBuilder.Entity("LexiconUniversity.Core.Entities.Enrollment", b =>
@@ -67,7 +67,7 @@ namespace LexiconUniversity.Persistance.Migrations
 
                     b.HasIndex("StudentId");
 
-                    b.ToTable("Enrollment");
+                    b.ToTable("Enrollment", (string)null);
                 });
 
             modelBuilder.Entity("LexiconUniversity.Core.Entities.Student", b =>
@@ -96,7 +96,7 @@ namespace LexiconUniversity.Persistance.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Student");
+                    b.ToTable("Student", (string)null);
                 });
 
             modelBuilder.Entity("LexiconUniversity.Core.Entities.Address", b =>
