@@ -1,11 +1,12 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using LexiconUniversity.Persistance.Data;
+using LexiconUniversity.Persistance;
 namespace LexiconUniversity.Web
 {
     public class Program
     {
-        public static void Main(string[] args)
+        public static async Task Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
             builder.Services.AddDbContext<LexiconUniversityContext>(options =>
@@ -15,6 +16,25 @@ namespace LexiconUniversity.Web
             builder.Services.AddControllersWithViews();
 
             var app = builder.Build();
+
+            using(var scope = app.Services.CreateScope())
+            {
+                var serviceProvider = scope.ServiceProvider;
+                var context = serviceProvider.GetRequiredService<LexiconUniversityContext>();
+
+                await context.Database.EnsureDeletedAsync();
+                await context.Database.MigrateAsync();
+
+                try
+                {
+                    await SeedData.InitAsync(context); 
+                }
+                catch (Exception ex)
+                {
+
+                    throw;
+                }
+            }
 
             // Configure the HTTP request pipeline.
             if (!app.Environment.IsDevelopment())
