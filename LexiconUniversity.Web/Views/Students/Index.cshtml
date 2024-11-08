@@ -16,11 +16,14 @@
                 @Html.DisplayNameFor(model => model.Avatar)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.FullName)
+                @Html.DisplayNameFor(model => model.NameFullName)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.City)
-            </th>            
+                @Html.DisplayNameFor(model => model.AddressCity)
+            </th> 
+            <th>
+                @Html.DisplayNameFor(model => model.CourseInfos)
+            </th>
             <th></th>
         </tr>
     </thead>
@@ -31,11 +34,17 @@
                 @Html.DisplayFor(modelItem => item.Avatar)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.FullName)
+                @Html.DisplayFor(modelItem => item.NameFullName)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.City)
-            </td>           
+                @Html.DisplayFor(modelItem => item.AddressCity)
+            </td>
+            <td>
+                    @foreach(var course in item.CourseInfos)
+                    {
+                        <p>Course: @course.CourseName | Grade: @course.Grade</p>
+                    }
+            </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
                 <a asp-action="Details" asp-route-id="@item.Id">Details</a> |

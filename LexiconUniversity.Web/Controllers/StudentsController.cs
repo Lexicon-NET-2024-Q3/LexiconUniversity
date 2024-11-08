@@ -30,16 +30,24 @@ namespace LexiconUniversity.Web.Controllers
 
             //var c = _context.Student.Include(s => s.Courses).ToList(); 
 
-            var model = _context.Student/*.AsNoTracking()*/
-                .OrderByDescending(s=>s.Id)
-                .Select(s => new StudentIndexViewModel
-                {
-                    Id = s.Id,
-                    Avatar = s.Avatar,
-                    FullName = s.Name.FullName,
-                    City = s.Address.City
-                })
-                .Take(5);
+            //var model = _context.Student/*.AsNoTracking()*/
+            //    .OrderByDescending(s => s.Id)
+            //    .Select(s => new StudentIndexViewModel
+            //    {
+            //        Id = s.Id,
+            //        Avatar = s.Avatar,
+            //        FullName = s.Name.FullName,
+            //        City = s.Address.City,
+            //        CourseInfos = s.Enrollments.Select(e => new CourseInfo
+            //        {
+            //            CourseName = e.Course.Title,
+            //            Grade = e.Grade
+            //        })
+            //    })
+            //    .Take(5);
+            var model = mapper.ProjectTo<StudentIndexViewModel>(_context.Student)
+                .OrderByDescending(s => s.Id)
+                .Take(5); 
 
             return View(await model.ToListAsync());
         }
@@ -88,7 +96,7 @@ namespace LexiconUniversity.Web.Controllers
                 //};
 
                 var student = mapper.Map<Student>(viewModel);
-                student.Avatar = "https://thispersondoesnotexist.com/"; 
+                student.Avatar = "https://thispersondoesnotexist.com/";
                 _context.Add(student);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
