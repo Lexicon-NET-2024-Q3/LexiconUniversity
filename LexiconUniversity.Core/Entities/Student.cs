@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,6 +11,7 @@ namespace LexiconUniversity.Core.Entities
     {
         public int Id { get; set; }
         public string Avatar { get; set; }
+        
         public string FirstName { get; set; }
         public string LastName { get; set; }
 
@@ -18,11 +20,19 @@ namespace LexiconUniversity.Core.Entities
         public string Email { get; set; }
 
         //Navigational property
-        public Address Address { get; set; }
+        public Address Address { get; set; } = new Address();
 
         //Convention 2 & 3
-        public ICollection<Enrollment> Enrollments { get; set; }
+        public ICollection<Enrollment> Enrollments { get; set; } = new List<Enrollment>();
 
-        public ICollection<Course> Courses { get; set; }
+        public ICollection<Course> Courses { get; set; } = new List<Course>();
+
+        public Student(string avatar, string firstName, string lastName, string email)
+        {
+            Avatar = avatar;
+            FirstName = firstName;
+            LastName = lastName;
+            Email = email;
+        }
     }
 }

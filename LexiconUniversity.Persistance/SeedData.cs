@@ -78,12 +78,12 @@ namespace LexiconUniversity.Persistance
                 var lName = faker.Name.LastName();
                 var email = faker.Internet.Email(fName, lName, "lexicon.se");
 
-                var student = new Student()
+                var student = new Student(avatar, fName, lName, email)
                 {
-                    Avatar = avatar,
-                    FirstName = fName,
-                    LastName = lName,
-                    Email = email,
+                    //Avatar = avatar,
+                    //FirstName = fName,
+                    //LastName = lName,
+                    //Email = email,
                     Address = new Address
                     {
                         Street = faker.Address.StreetName(),
