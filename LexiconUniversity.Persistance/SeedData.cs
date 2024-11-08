@@ -73,7 +73,7 @@ namespace LexiconUniversity.Persistance
 
             for (int i = 0; i < numberOfStudents; i++)
             {
-                var avatar = faker.Internet.Avatar();
+                var avatar = "https://thispersondoesnotexist.com/";
                 var fName = faker.Name.FirstName();
                 var lName = faker.Name.LastName();
                 var email = faker.Internet.Email(fName, lName, "lexicon.se");

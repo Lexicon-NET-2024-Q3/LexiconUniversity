@@ -2,6 +2,7 @@
 using Microsoft.Extensions.DependencyInjection;
 using LexiconUniversity.Persistance.Data;
 using LexiconUniversity.Persistance;
+using LexiconUniversity.Web.Extensions;
 namespace LexiconUniversity.Web
 {
     public class Program
@@ -17,24 +18,7 @@ namespace LexiconUniversity.Web
 
             var app = builder.Build();
 
-            using(var scope = app.Services.CreateScope())
-            {
-                var serviceProvider = scope.ServiceProvider;
-                var context = serviceProvider.GetRequiredService<LexiconUniversityContext>();
-
-                await context.Database.EnsureDeletedAsync();
-                await context.Database.MigrateAsync();
-
-                try
-                {
-                    await SeedData.InitAsync(context); 
-                }
-                catch (Exception ex)
-                {
-
-                    throw;
-                }
-            }
+            
 
             // Configure the HTTP request pipeline.
             if (!app.Environment.IsDevelopment())
@@ -42,6 +26,10 @@ namespace LexiconUniversity.Web
                 app.UseExceptionHandler("/Home/Error");
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
+            }
+            else
+            {
+                await app.SeedDataAsync(); 
             }
 
             app.UseHttpsRedirection();
@@ -53,7 +41,7 @@ namespace LexiconUniversity.Web
 
             app.MapControllerRoute(
                 name: "default",
-                pattern: "{controller=Home}/{action=Index}/{id?}");
+                pattern: "{controller=Students}/{action=Index}/{id?}");
 
             app.Run();
         }
