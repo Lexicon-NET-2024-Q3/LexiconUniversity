@@ -11,7 +11,6 @@
     <Content Remove="Views\Students\Delete.cshtml" />
     <Content Remove="Views\Students\Details.cshtml" />
     <Content Remove="Views\Students\Edit.cshtml" />
-    <Content Remove="Views\Students\Index.cshtml" />
   </ItemGroup>
 
   <ItemGroup>
@@ -25,10 +24,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\LexiconUniversity.Persistance\LexiconUniversity.Persistance.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Views\Students\" />
   </ItemGroup>
 
 </Project>
