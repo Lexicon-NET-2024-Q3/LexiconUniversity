@@ -12,10 +12,7 @@ namespace LexiconUniversity.Core.Entities
         public int Id { get; set; }
         public string Avatar { get; set; }
         
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
-
-        public string FullName => $"{FirstName} {LastName}"; 
+        public Name Name { get; set; }
 
         public string Email { get; set; }
 
@@ -27,12 +24,32 @@ namespace LexiconUniversity.Core.Entities
 
         public ICollection<Course> Courses { get; set; } = new List<Course>();
 
-        public Student(string avatar, string firstName, string lastName, string email)
+        private Student()
+        {
+            Avatar = null!;
+            Name = null!;
+            Email = null!; 
+        }
+        public Student(string avatar, Name name, string email)
         {
             Avatar = avatar;
-            FirstName = firstName;
-            LastName = lastName;
+            Name = name; 
             Email = email;
+        }
+
+    }
+
+    public class Name
+    {
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+
+        public string FullName => $"{FirstName} {LastName}";
+
+        public Name(string firstName, string lastName)
+        {
+            FirstName = firstName;
+            LastName = lastName; 
         }
     }
 }

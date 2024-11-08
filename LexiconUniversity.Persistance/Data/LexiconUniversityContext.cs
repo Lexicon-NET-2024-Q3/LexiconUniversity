@@ -18,9 +18,22 @@ namespace LexiconUniversity.Persistance.Data
         //Not needed for Convention 2
         //public DbSet<Enrollment> Enrollments { get; set; } = default!;
 
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
+
+            //Wrong name in DB
+            //modelBuilder.Entity<Student>().OwnsOne(s => s.Name); 
+
+            modelBuilder.Entity<Student>()
+                .OwnsOne(s => s.Name)
+                .Property(n => n.FirstName)
+                .HasColumnName("FirstName"); 
+            modelBuilder.Entity<Student>()
+                .OwnsOne(s => s.Name)
+                .Property(n => n.LastName)
+                .HasColumnName("LastName");
 
             modelBuilder.Entity<Student>()
                 .HasMany(s => s.Courses)
