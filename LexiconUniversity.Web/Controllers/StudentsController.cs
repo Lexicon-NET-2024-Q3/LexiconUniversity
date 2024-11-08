@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -12,10 +13,12 @@ namespace LexiconUniversity.Web.Controllers
     public class StudentsController : Controller
     {
         private readonly LexiconUniversityContext _context;
+        private readonly IMapper mapper;
 
-        public StudentsController(LexiconUniversityContext context)
+        public StudentsController(LexiconUniversityContext context, IMapper mapper)
         {
             _context = context;
+            this.mapper = mapper;
         }
 
         // GET: Students
@@ -74,15 +77,18 @@ namespace LexiconUniversity.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                var student = new Student("https://thispersondoesnotexist.com/", new Name(viewModel.FirstName, viewModel.LastName), viewModel.Email)
-                {
-                    Address = new Address
-                    {
-                        Street = viewModel.Street,
-                        ZipCode = viewModel.ZipCode,
-                        City = viewModel.City
-                    }
-                };
+                //var student = new Student("https://thispersondoesnotexist.com/", new Name(viewModel.FirstName, viewModel.LastName), viewModel.Email)
+                //{
+                //    Address = new Address
+                //    {
+                //        Street = viewModel.Street,
+                //        ZipCode = viewModel.ZipCode,
+                //        City = viewModel.City
+                //    }
+                //};
+
+                var student = mapper.Map<Student>(viewModel);
+                student.Avatar = "https://thispersondoesnotexist.com/"; 
                 _context.Add(student);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));

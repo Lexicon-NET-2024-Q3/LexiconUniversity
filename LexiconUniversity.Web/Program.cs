@@ -3,6 +3,7 @@ using Microsoft.Extensions.DependencyInjection;
 using LexiconUniversity.Persistance.Data;
 using LexiconUniversity.Persistance;
 using LexiconUniversity.Web.Extensions;
+using LexiconUniversity.Web.AutoMapperConfig;
 namespace LexiconUniversity.Web
 {
     public class Program
@@ -15,6 +16,8 @@ namespace LexiconUniversity.Web
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
+
+            builder.Services.AddAutoMapper(typeof(UniversityMappings)); 
 
             var app = builder.Build();
 
