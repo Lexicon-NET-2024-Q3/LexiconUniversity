@@ -95,8 +95,18 @@ namespace LexiconUniversity.Web.Controllers
                 //    }
                 //};
 
+                Random rnd = new Random(); 
                 var student = mapper.Map<Student>(viewModel);
                 student.Avatar = "https://thispersondoesnotexist.com/";
+
+                foreach (var courseId in viewModel.SelectedCourses)
+                {
+                    student.Enrollments.Add(new Enrollment
+                    {
+                        CourseId = courseId,
+                        Grade = rnd.Next(1, 6)
+                    }); 
+                }
                 _context.Add(student);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));

@@ -8,5 +8,7 @@
         public string AddressStreet { get; set; }
         public string AddressZipCode { get; set; }
         public string AddressCity { get; set; }
+
+        public IEnumerable<int> SelectedCourses { get; set; } = new List<int>(); 
     }
 }

@@ -4,6 +4,7 @@ using LexiconUniversity.Persistance.Data;
 using LexiconUniversity.Persistance;
 using LexiconUniversity.Web.Extensions;
 using LexiconUniversity.Web.AutoMapperConfig;
+using LexiconUniversity.Web.Services;
 namespace LexiconUniversity.Web
 {
     public class Program
@@ -17,7 +18,9 @@ namespace LexiconUniversity.Web
             // Add services to the container.
             builder.Services.AddControllersWithViews();
 
-            builder.Services.AddAutoMapper(typeof(UniversityMappings)); 
+            builder.Services.AddAutoMapper(typeof(UniversityMappings));
+
+            builder.Services.AddScoped<IGetCoursesService, GetCoursesService>(); 
 
             var app = builder.Build();
 
