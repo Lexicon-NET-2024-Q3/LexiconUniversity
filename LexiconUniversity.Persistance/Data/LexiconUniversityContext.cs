@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using LexiconUniversity.Core.Entities;
+using LexiconUniversity.Persistance.Configurations;
 
 namespace LexiconUniversity.Persistance.Data
 {
@@ -23,28 +24,7 @@ namespace LexiconUniversity.Persistance.Data
         {
             base.OnModelCreating(modelBuilder);
 
-            //Wrong name in DB
-            //modelBuilder.Entity<Student>().OwnsOne(s => s.Name); 
-
-            modelBuilder.Entity<Student>()
-                .OwnsOne(s => s.Name)
-                .Property(n => n.FirstName)
-                .HasColumnName("FirstName"); 
-            modelBuilder.Entity<Student>()
-                .OwnsOne(s => s.Name)
-                .Property(n => n.LastName)
-                .HasColumnName("LastName");
-
-            modelBuilder.Entity<Student>()
-                .HasMany(s => s.Courses)
-                .WithMany(c => c.Students)
-                .UsingEntity<Enrollment>(
-                e => e.HasOne(e=>e.Course).WithMany(c =>c.Enrollments),
-                e =>e.HasOne(e=>e.Student).WithMany(s=>s.Enrollments),
-                e => e.HasKey(e => new {e.CourseId, e.StudentId}));
-
-
-            //modelBuilder.Entity<Enrollment>().HasKey(e => new { e.CourseId, e.StudentId }); 
+            modelBuilder.ApplyConfiguration(new StudentConfigurations()); 
         }
     }
 }
