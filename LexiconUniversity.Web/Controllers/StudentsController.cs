@@ -28,13 +28,15 @@ namespace LexiconUniversity.Web.Controllers
             //var c = _context.Student.Include(s => s.Courses).ToList(); 
 
             var model = _context.Student/*.AsNoTracking()*/
+                .OrderByDescending(s=>s.Id)
                 .Select(s => new StudentIndexViewModel
                 {
                     Id = s.Id,
                     Avatar = s.Avatar,
                     FullName = s.Name.FullName,
                     City = s.Address.City
-                });
+                })
+                .Take(5);
 
             return View(await model.ToListAsync());
         }
@@ -68,15 +70,24 @@ namespace LexiconUniversity.Web.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Avatar,FirstName,LastName,Email")] Student student)
+        public async Task<IActionResult> Create(StudentCreateViewModel viewModel)
         {
             if (ModelState.IsValid)
             {
+                var student = new Student("https://thispersondoesnotexist.com/", new Name(viewModel.FirstName, viewModel.LastName), viewModel.Email)
+                {
+                    Address = new Address
+                    {
+                        Street = viewModel.Street,
+                        ZipCode = viewModel.ZipCode,
+                        City = viewModel.City
+                    }
+                };
                 _context.Add(student);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(student);
+            return View(viewModel);
         }
 
         // GET: Students/Edit/5
