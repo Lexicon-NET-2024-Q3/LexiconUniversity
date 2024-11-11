@@ -25,27 +25,11 @@ namespace LexiconUniversity.Web.Controllers
         // GET: Students
         public async Task<IActionResult> Index()
         {
-            //var t = _context.Student.ToList();
-            //var t2 = _context.Student.Include(s => s.Enrollments).ToList();
-            //var t3 = _context.Student.Include(s => s.Enrollments).ThenInclude(e => e.Course).ToList();
+            var student = _context.Student.Include(s => s.Address).FirstOrDefault();
+            student.Name.FirstName = "Edited in Index";
+            _context.Student.Update(student);
+            await _context.SaveChangesAsync(); 
 
-            //var c = _context.Student.Include(s => s.Courses).ToList(); 
-
-            //var model = _context.Student/*.AsNoTracking()*/
-            //    .OrderByDescending(s => s.Id)
-            //    .Select(s => new StudentIndexViewModel
-            //    {
-            //        Id = s.Id,
-            //        Avatar = s.Avatar,
-            //        FullName = s.Name.FullName,
-            //        City = s.Address.City,
-            //        CourseInfos = s.Enrollments.Select(e => new CourseInfo
-            //        {
-            //            CourseName = e.Course.Title,
-            //            Grade = e.Grade
-            //        })
-            //    })
-            //    .Take(5);
             var model = mapper.ProjectTo<StudentIndexViewModel>(_context.Student)
                 .OrderByDescending(s => s.Id)
                 .Take(5); 
