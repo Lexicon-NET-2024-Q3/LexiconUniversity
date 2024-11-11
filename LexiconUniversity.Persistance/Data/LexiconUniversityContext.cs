@@ -28,6 +28,8 @@ namespace LexiconUniversity.Persistance.Data
 
             modelBuilder.ApplyConfiguration(new StudentConfigurations());
 
+            modelBuilder.Entity<Course>().ToTable("Course", c => c.IsTemporal()); 
+
             //foreach (var entity in modelBuilder.Model.GetEntityTypes())
             //{
             //    entity.AddProperty("Edited", typeof(DateTime)); 
