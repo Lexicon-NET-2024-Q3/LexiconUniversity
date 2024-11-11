@@ -66,8 +66,8 @@
 
             @foreach (var course in Model.Courses)
             {
-                @course.Title
-                @* <a asp-controller="Courses" asp-action="Details" asp-route-id="@course.Id">@course.Title</a> *@
+                @* @course.Title *@
+                <a asp-controller="Courses" asp-action="Details" asp-route-id="@course.Id">@course.Title</a>
                 <br />
             }
         </dd>
