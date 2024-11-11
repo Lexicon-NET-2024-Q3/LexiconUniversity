@@ -21,6 +21,8 @@ namespace LexiconUniversity.Persistance.Configurations
                 .Property(n => n.LastName)
                 .HasColumnName("LastName");
 
+            builder.Property<DateTime>("Edited"); 
+
             builder.HasMany(s => s.Courses)
                 .WithMany(c => c.Students)
                 .UsingEntity<Enrollment>(
