@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
+using LexiconUniversity.Web.Filters;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -81,10 +82,11 @@ namespace LexiconUniversity.Web.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [ModelStateIsValid]
         public async Task<IActionResult> Create(StudentCreateViewModel viewModel)
         {
-            if (ModelState.IsValid)
-            {
+            //if (ModelState.IsValid)
+            //{
                 //var student = new Student("https://thispersondoesnotexist.com/", new Name(viewModel.FirstName, viewModel.LastName), viewModel.Email)
                 //{
                 //    Address = new Address
@@ -110,8 +112,8 @@ namespace LexiconUniversity.Web.Controllers
                 _context.Add(student);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
-            }
-            return View(viewModel);
+            //}
+            //return View(viewModel);
         }
 
         // GET: Students/Edit/5

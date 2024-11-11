@@ -5,6 +5,7 @@ using LexiconUniversity.Persistance;
 using LexiconUniversity.Web.Extensions;
 using LexiconUniversity.Web.AutoMapperConfig;
 using LexiconUniversity.Web.Services;
+using LexiconUniversity.Web.Filters;
 namespace LexiconUniversity.Web
 {
     public class Program
@@ -18,13 +19,20 @@ namespace LexiconUniversity.Web
             // Add services to the container.
             builder.Services.AddControllersWithViews();
 
+
+            //builder.Services.AddControllersWithViews(
+            //    opt =>
+            //    {
+            //        opt.Filters.Add(typeof(ModelStateIsValid));
+            //    });
+
             builder.Services.AddAutoMapper(typeof(UniversityMappings));
 
-            builder.Services.AddScoped<IGetCoursesService, GetCoursesService>(); 
+            builder.Services.AddScoped<IGetCoursesService, GetCoursesService>();
 
             var app = builder.Build();
 
-            
+
 
             // Configure the HTTP request pipeline.
             if (!app.Environment.IsDevelopment())
@@ -35,7 +43,7 @@ namespace LexiconUniversity.Web
             }
             else
             {
-                await app.SeedDataAsync(); 
+                await app.SeedDataAsync();
             }
 
             app.UseHttpsRedirection();
