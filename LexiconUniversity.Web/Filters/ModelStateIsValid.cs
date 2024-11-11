@@ -3,14 +3,10 @@ using Microsoft.AspNetCore.Mvc.Filters;
 
 namespace LexiconUniversity.Web.Filters
 {
-    public class ModelStateIsValid : Attribute, IActionFilter
+    public class ModelStateIsValid : ActionFilterAttribute /*Attribute, IActionFilter*/
     {
-        public void OnActionExecuted(ActionExecutedContext context)
-        {
-            //throw new NotImplementedException();
-        }
 
-        public void OnActionExecuting(ActionExecutingContext context)
+        public override void OnActionExecuting(ActionExecutingContext context)
         {
             if (!context.ModelState.IsValid)
             {
