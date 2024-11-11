@@ -15,7 +15,12 @@ namespace LexiconUniversity.Web.AutoMapperConfig
                 {
                     Grade = e.Grade,
                     CourseName = e.Course.Title
-                }))); 
+                })));
+
+            CreateMap<Student, StudentDetailsViewModel>()
+                .ForMember(
+                dest => dest.Attending,
+                from => from.MapFrom(s => s.Courses.Count)); 
         }
     }
 }
