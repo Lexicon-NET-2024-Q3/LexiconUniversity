@@ -5,6 +5,7 @@ namespace LexiconUniversity.Web.Models.ViewModels
     public class StudentCreateViewModel
     {
         public string NameFirstName { get; set; }
+        [CheckLastName]
         public string NameLastName { get; set; }
         public string Email { get; set; }
         [CheckStreetNr(10)]
